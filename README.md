@@ -18,5 +18,4 @@ Fruit.ai is a comprehensive health management application designed to assist use
 
 - **Node.js** and **npm** (for frontend)
 - **Python** and **Flask** (for backend)
-- **PostgreSQL** or another relational database (if applicable)
 - **Git** (for version control)
