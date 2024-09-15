@@ -1,0 +1,74 @@
+{
+  "en": {
+    "hello": "Hello",
+    "goodbye": "Goodbye",
+    "welcome": "Welcome",
+    "thank_you": "Thank you",
+    "sorry": "Sorry",
+    "please": "Please",
+    "yes": "Yes",
+    "no": "No",
+    "good_morning": "Good morning",
+    "good_night": "Good night"
+  },
+  "hi": {
+    "hello": "नमस्ते",
+    "goodbye": "अलविदा",
+    "welcome": "स्वागत है",
+    "thank_you": "धन्यवाद",
+    "sorry": "माफ करें",
+    "please": "कृपया",
+    "yes": "हाँ",
+    "no": "नहीं",
+    "good_morning": "सुप्रभात",
+    "good_night": "शुभ रात्रि"
+  },
+  "es": {
+    "hello": "Hola",
+    "goodbye": "Adiós",
+    "welcome": "Bienvenido",
+    "thank_you": "Gracias",
+    "sorry": "Lo siento",
+    "please": "Por favor",
+    "yes": "Sí",
+    "no": "No",
+    "good_morning": "Buenos días",
+    "good_night": "Buenas noches"
+  },
+  "fr": {
+    "hello": "Bonjour",
+    "goodbye": "Au revoir",
+    "welcome": "Bienvenue",
+    "thank_you": "Merci",
+    "sorry": "Désolé",
+    "please": "S'il vous plaît",
+    "yes": "Oui",
+    "no": "Non",
+    "good_morning": "Bonjour",
+    "good_night": "Bonne nuit"
+  },
+  "de": {
+    "hello": "Hallo",
+    "goodbye": "Auf Wiedersehen",
+    "welcome": "Willkommen",
+    "thank_you": "Danke",
+    "sorry": "Entschuldigung",
+    "please": "Bitte",
+    "yes": "Ja",
+    "no": "Nein",
+    "good_morning": "Guten Morgen",
+    "good_night": "Gute Nacht"
+  },
+  "jp": {
+    "hello": "こんにちは",
+    "goodbye": "さようなら",
+    "welcome": "ようこそ",
+    "thank_you": "ありがとう",
+    "sorry": "ごめんなさい",
+    "please": "お願いします",
+    "yes": "はい",
+    "no": "いいえ",
+    "good_morning": "おはようございます",
+    "good_night": "おやすみなさい"
+  }
+}
