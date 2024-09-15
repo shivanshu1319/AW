@@ -1,7 +1,9 @@
-from flask import Flask, jsonify, request, abort # type: ignore
-from flask_cors import CORS # type: ignore
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+
 app = Flask(__name__)
-CORS(app)
+CORS(app)  # Allow cross-origin requests
+
 # In-memory storage for FAQs
 faqs = [
     {'id': 1, 'question': 'What is Fruit.ai?', 'answer': 'Fruit.ai is a health management app.'},
@@ -11,71 +13,49 @@ faqs = [
     {'id': 5, 'question': 'How do I contact support?', 'answer': 'You can contact us via the support form on our website.'},
 ]
 
-# Helper function to find an FAQ by ID
-def find_faq(faq_id):
-    return next((faq for faq in faqs if faq['id'] == faq_id), None)
+# Define a root route
+@app.route('/', methods=['GET'])
+def index():
+    return "Welcome to the Fruit.ai Backend API!", 200
 
-# Get all FAQs
+# GET /faqs - Fetch all FAQs
 @app.route('/faqs', methods=['GET'])
 def get_faqs():
-    return jsonify(faqs)
+    return jsonify(faqs), 200
 
-# Get a specific FAQ by ID
+# GET /faqs/<id> - Fetch a single FAQ by ID
 @app.route('/faqs/<int:faq_id>', methods=['GET'])
 def get_faq(faq_id):
-    faq = find_faq(faq_id)
+    faq = next((item for item in faqs if item['id'] == faq_id), None)
     if faq is None:
-        abort(404, description="FAQ not found")
-    return jsonify(faq)
+        return jsonify({'error': 'FAQ not found'}), 404
+    return jsonify(faq), 200
 
-# Create a new FAQ
+# POST /faqs - Create a new FAQ
 @app.route('/faqs', methods=['POST'])
 def create_faq():
-    if not request.json or 'question' not in request.json or 'answer' not in request.json:
-        abort(400, description="Invalid input: 'question' and 'answer' are required")
-
-    new_id = max(faq['id'] for faq in faqs) + 1 if faqs else 1
-    new_faq = {
-        'id': new_id,
-        'question': request.json['question'],
-        'answer': request.json['answer']
-    }
+    new_faq = request.json
+    new_faq['id'] = len(faqs) + 1  # Simple ID assignment
     faqs.append(new_faq)
     return jsonify(new_faq), 201
 
-# Update an existing FAQ
+# PUT /faqs/<id> - Update an FAQ by ID
 @app.route('/faqs/<int:faq_id>', methods=['PUT'])
 def update_faq(faq_id):
-    faq = find_faq(faq_id)
+    faq = next((item for item in faqs if item['id'] == faq_id), None)
     if faq is None:
-        abort(404, description="FAQ not found")
+        return jsonify({'error': 'FAQ not found'}), 404
+    
+    data = request.json
+    faq.update(data)
+    return jsonify(faq), 200
 
-    if not request.json or 'question' not in request.json or 'answer' not in request.json:
-        abort(400, description="Invalid input: 'question' and 'answer' are required")
-
-    faq['question'] = request.json['question']
-    faq['answer'] = request.json['answer']
-    return jsonify(faq)
-
-# Delete an FAQ
+# DELETE /faqs/<id> - Delete an FAQ by ID
 @app.route('/faqs/<int:faq_id>', methods=['DELETE'])
 def delete_faq(faq_id):
     global faqs
-    faq = find_faq(faq_id)
-    if faq is None:
-        abort(404, description="FAQ not found")
-    
-    faqs = [faq for faq in faqs if faq['id'] != faq_id]
-    return '', 204
-
-# Custom error handlers
-@app.errorhandler(404)
-def not_found_error(error):
-    return jsonify({'error': str(error)}), 404
-
-@app.errorhandler(400)
-def bad_request_error(error):
-    return jsonify({'error': str(error)}), 400
+    faqs = [item for item in faqs if item['id'] != faq_id]
+    return jsonify({'message': 'FAQ deleted successfully'}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
